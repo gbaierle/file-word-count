@@ -1,0 +1,14 @@
+{
+  "name": "word-count",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --test ccwc.test.js",
+    "test:watch": "node --test --watch ccwc.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
