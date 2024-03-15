@@ -1,6 +1,6 @@
-import { test } from 'node:test';
+import test from 'node:test';
 import assert from 'node:assert';
-import { countBytes, countLines, countWords } from './ccwc.js';
+import { countBytes, countLines, countWords, countChars } from './ccwc.js';
 
 const TEST_FILE = 'test.txt';
 
@@ -17,4 +17,9 @@ test('should return the number of lines in a file', async () => {
 test('should return the number of words in a file', async () => {
   const lines = await countWords(TEST_FILE);
   assert.equal(lines, 58164);
+});
+
+test('should return the number of characters in a file', async () => {
+  const lines = await countChars(TEST_FILE);
+  assert.equal(lines, 339292);
 });

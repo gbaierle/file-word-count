@@ -1,19 +1,26 @@
 import fs from 'fs/promises';
+import { Socket } from 'net';
 import { createReadStream } from 'node:fs';
 
 const LINE_BREAK = '\n'.charCodeAt(0)
 
 const countBytes = async (filePath) => {
   const stats = await fs.stat(filePath)
-  console.log(stats)
   return stats.size || 0;
 }
 
 const countLines = async (filePath) => {
   let lineCount = 0;
+  let readStream = null;
+
+  if (filePath instanceof Socket) {
+    readStream = filePath
+  } else {
+    readStream = createReadStream(filePath)
+  }
 
   return new Promise((resolve, reject) => {
-    createReadStream(filePath)
+    readStream
       .on('data', (chunk) => {
         for (let i = 0; i < chunk.length; ++i) {
           if (chunk[i] == LINE_BREAK) {
@@ -50,4 +57,22 @@ const countWords = async (filePath) => {
     });
 }
 
-export { countBytes, countLines, countWords };
+const countChars = async (filePath) => {
+
+  return new Promise((resolve, reject) => {
+    let charsCount = 0;
+
+    createReadStream(filePath)
+      .on('data', (chunk) => {
+        charsCount += chunk.toString().length
+      })
+      .on('end', () => {
+        resolve(charsCount);
+      })
+      .on('error', (err) => {
+        reject(err);
+      })
+    });
+}
+
+export { countBytes, countLines, countWords, countChars };
