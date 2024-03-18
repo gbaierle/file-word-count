@@ -31,4 +31,11 @@ describe('FileWordCount tests', async () => {
     const chars = await fileWordCount.countChars();
     assert.equal(chars, 339292); // Result from `wc -m test.txt`
   });
+
+  test('should return the number of lines, words and bytes in a file', async () => {
+    const { lines, words, bytes } = await fileWordCount.countAll();
+    assert.equal(lines, 7145);
+    assert.equal(words, 58164);
+    assert.equal(bytes, 342190);
+  });
 });
