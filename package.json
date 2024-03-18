@@ -1,12 +1,16 @@
 {
-  "name": "word-count",
+  "name": "file-word-count",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bin/index.js",
   "type": "module",
   "scripts": {
-    "test": "node --test ccwc.test.js",
-    "test:watch": "node --test --watch ccwc.test.js"
+    "test": "node --test",
+    "test:cov": "node --test --experimental-test-coverage",
+    "test:watch": "node --test --watch **/*.test.js"
+  },
+  "bin": {
+    "ccwc": "node ./bin/index.js"
   },
   "keywords": [],
   "author": "",
